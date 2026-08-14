@@ -1,4 +1,28 @@
-﻿var databasePath = Path.Combine(Environment.CurrentDirectory, "finance.db");
+﻿const string DbName = "finance.db";
+
+if (args[0] == "delete")
+{
+    if (File.Exists(DbName))
+    {
+        File.Delete(DbName);
+    }
+    Environment.Exit(1);
+}
+else if (args[0] == "list")
+{
+    foreach (var transaction in database.GetTransactions())
+    {
+        string sign = transaction.Type == TransactionType.Income ? "+" : "-";
+
+        Console.WriteLine(
+            $"{transaction.Date:dd/MM/yyyy} | " +
+            $"{transaction.Description,-20} | " +
+            $"{sign} R$ {transaction.ValueInCents / 100m:N2} | " +
+            $"{transaction.Category ?? TransactionCategory.Home}");
+    }
+}
+
+var databasePath = Path.Combine(Environment.CurrentDirectory, DbName);
 
 var database = new TransactionDatabase(databasePath);
 
@@ -18,13 +42,3 @@ long id = database.AddTransaction(
 
 Console.WriteLine($"\nTransaction #{id} saved.\n");
 
-foreach (var transaction in database.GetTransactions())
-{
-    string sign = transaction.Type == TransactionType.Income ? "+" : "-";
-
-    Console.WriteLine(
-        $"{transaction.Date:dd/MM/yyyy} | " +
-        $"{transaction.Description,-20} | " +
-        $"{sign} R$ {transaction.ValueInCents / 100m:N2} | " +
-        $"{transaction.Category ?? TransactionCategory.Home}");
-}
