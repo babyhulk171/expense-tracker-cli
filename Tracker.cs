@@ -14,10 +14,10 @@ public enum TransactionType
 
 public record FinanceTransaction
 (
-    int Id,
+    long Id,
     TransactionType Type,
     TransactionCategory Category,
     string Description,
     long ValueInCents,
-    DateOnly date
+    DateOnly Date
 );
