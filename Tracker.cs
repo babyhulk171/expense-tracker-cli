@@ -16,7 +16,7 @@ public record FinanceTransaction
 (
     long Id,
     TransactionType Type,
-    TransactionCategory Category,
+    TransactionCategory? Category,
     string Description,
     long ValueInCents,
     DateOnly Date

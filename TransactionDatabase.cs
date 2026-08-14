@@ -24,8 +24,9 @@ public class TransactionDatabase
                 type            TEXT NOT NULL CHECK (type IN ('Income', 'Expense')),
                 category        TEXT,
                 description     TEXT NOT NULL,
-                value_in_cents  INTEGER NOT NULL CHECK (amount_in_cents > 0),
+                value_in_cents  INTEGER NOT NULL CHECK (value_in_cents > 0),
                 date            TEXT NOT NULL
+            );
             """;
         
         command.ExecuteNonQuery();
@@ -33,7 +34,7 @@ public class TransactionDatabase
 
     public long AddTransaction(
         TransactionType type,
-        string? category,
+        TransactionCategory? category,
         string description,
         decimal value,
         DateOnly date)
@@ -100,10 +101,10 @@ public class TransactionDatabase
         {
             var transaction = new FinanceTransaction(
                 Id: reader.GetInt64(0),
-                Description: reader.GetString(1),
-                ValueInCents: reader.GetInt64(2),
-                Type: Enum.Parse<TransactionType>(reader.GetString(3)),
-                Category: reader.IsDBNull(4) ? null : reader.GetString(4),
+                Type: Enum.Parse<TransactionType>(reader.GetString(1)),
+                Category: reader.IsDBNull(2) ? null : Enum.Parse<TransactionCategory>(reader.GetString(2)),
+                Description: reader.GetString(3),
+                ValueInCents: reader.GetInt64(4),
                 Date: DateOnly.ParseExact(
                     reader.GetString(5),
                     "dd-MM-year")
