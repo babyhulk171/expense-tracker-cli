@@ -6,11 +6,18 @@ public enum TransactionCategory
     Debt
 }
 
+public enum TransactionType
+{
+    Income,
+    Expense
+}
+
 public record FinanceTransaction
 (
     int Id,
+    TransactionType Type,
     TransactionCategory Category,
     string Description,
-    float Value,
+    long ValueInCents,
     DateOnly date
 );
