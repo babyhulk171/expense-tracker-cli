@@ -68,7 +68,7 @@ public class TransactionDatabase
         command.Parameters.AddWithValue("$value", valueInCents);
         command.Parameters.AddWithValue(
             "$date",
-            date.ToString("dd-MM-year"));
+            date.ToString("dd-MM-yyyy"));
 
         return Convert.ToInt64(command.ExecuteScalar());
     }
@@ -107,7 +107,7 @@ public class TransactionDatabase
                 ValueInCents: reader.GetInt64(4),
                 Date: DateOnly.ParseExact(
                     reader.GetString(5),
-                    "dd-MM-year")
+                    "dd-MM-yyyy")
             );
 
             transactions.Add(transaction);
