@@ -1,6 +1,4 @@
-﻿using System.Transactions;
-
-const string DbName = "finance.db";
+﻿const string DbName = "finance.db";
 var databasePath = Path.Combine(Environment.CurrentDirectory, DbName);
 var database = new TransactionDatabase(databasePath);
 database.Initialize();

@@ -5,7 +5,8 @@ public class TransactionCalculations
         decimal totalExpenses = (decimal)0.0;
         foreach (var transaction in database.GetTransactions())
         {
-            totalExpenses += transaction.ValueInCents / 100m;
+            if (transaction.Type == TransactionType.Income) totalExpenses += transaction.ValueInCents / 100m;
+            else if (transaction.Type == TransactionType.Expense) totalExpenses -= transaction.ValueInCents / 100m;
         }
 
         return totalExpenses;
