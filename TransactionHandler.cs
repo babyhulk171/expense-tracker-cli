@@ -1,5 +1,15 @@
 public class TransactionHandler
 {
+    private static void _HandleList(FinanceTransaction transaction)
+    {
+        string sign = transaction.Type == TransactionType.Income ? "+" : "-";
+
+        Console.WriteLine(
+        $"{transaction.Date:dd/MM/yyyy} | " +
+        $"{transaction.Description,-20} | " +
+        $"{sign} R$ {transaction.ValueInCents / 100m:N2} | " +
+        $"{transaction.Category ?? TransactionCategory.Home}");
+    }
     // Delete all the db file and exits.
     public static void HandleDelete(string dbName)
     {
@@ -15,13 +25,18 @@ public class TransactionHandler
     {
         foreach (var transaction in database.GetTransactions())
         {
-            string sign = transaction.Type == TransactionType.Income ? "+" : "-";
-
-            Console.WriteLine(
-                $"{transaction.Date:dd/MM/yyyy} | " +
-                $"{transaction.Description,-20} | " +
-                $"{sign} R$ {transaction.ValueInCents / 100m:N2} | " +
-                $"{transaction.Category ?? TransactionCategory.Home}");
+            _HandleList(transaction);
+        }
+        Environment.Exit(1);
+    }
+    public static void HandleList(TransactionDatabase database, TransactionCategory category)
+    {
+        foreach (var transaction in database.GetTransactions())
+        {
+            if (transaction.Category == category)
+            {
+                _HandleList(transaction);
+            }
         }
         Environment.Exit(1);
     }

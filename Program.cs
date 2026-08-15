@@ -11,6 +11,7 @@ if (args[0] == "delete")
 }
 else if (args[0] == "list")
 {
+    if (args.Length > 1) TransactionHandler.HandleList(database, Enum.Parse<TransactionCategory>(args[1]));
     TransactionHandler.HandleList(database);
 }
 else if (args[0] == "total")
