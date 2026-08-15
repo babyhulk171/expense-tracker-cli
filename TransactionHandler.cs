@@ -17,7 +17,7 @@ public class TransactionHandler
         {
             File.Delete(dbName);
         }
-        Environment.Exit(1);
+        Environment.Exit(0);
     }
 
     // Iterate over the DB list and write all the transactions and exits.
@@ -27,7 +27,7 @@ public class TransactionHandler
         {
             _HandleList(transaction);
         }
-        Environment.Exit(1);
+        Environment.Exit(0);
     }
     public static void HandleList(TransactionDatabase database, TransactionCategory category)
     {
@@ -38,7 +38,7 @@ public class TransactionHandler
                 _HandleList(transaction);
             }
         }
-        Environment.Exit(1);
+        Environment.Exit(0);
     }
 
     // Parse the command line arguments and add a transaction

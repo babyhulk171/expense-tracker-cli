@@ -17,7 +17,7 @@ else if (args[0] == "list")
 else if (args[0] == "total")
 {
     Console.WriteLine(TransactionCalculations.TotalExpenses(database));
-    Environment.Exit(1);
+    Environment.Exit(0);
 }
 
 TransactionHandler.HandleAddition(args, database);
