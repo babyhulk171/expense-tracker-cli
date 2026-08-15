@@ -15,6 +15,11 @@ else if (args[0] == "list")
 {
     TransactionHandler.HandleList(database);
 }
+else if (args[0] == "total")
+{
+    Console.WriteLine(TransactionCalculations.TotalExpenses(database));
+    Environment.Exit(1);
+}
 
 TransactionHandler.HandleAddition(args, database);
 
